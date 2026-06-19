@@ -1,68 +1,65 @@
 import sqlite3
 
 def book_appointment(
-appointment_id,
-patient,
-age,
-gender,
-phone,
-email,
-symptom,
-department,
-doctor,
-date,
-time
+    appointment_id,
+    patient,
+    age,
+    gender,
+    phone,
+    email,
+    symptom,
+    department,
+    doctor,
+    date,
+    time
 ):
-conn = sqlite3.connect("appointment.db")
-c = conn.cursor()
+    conn = sqlite3.connect("appointment.db")
+    c = conn.cursor()
 
-```
-c.execute(
-    """
-    INSERT INTO appointments(
-        appointment_id,
-        patient,
-        age,
-        gender,
-        phone,
-        email,
-        symptom,
-        department,
-        doctor,
-        date,
-        time
+    c.execute(
+        """
+        INSERT INTO appointments(
+            appointment_id,
+            patient,
+            age,
+            gender,
+            phone,
+            email,
+            symptom,
+            department,
+            doctor,
+            date,
+            time
+        )
+        VALUES(?,?,?,?,?,?,?,?,?,?,?)
+        """,
+        (
+            appointment_id,
+            patient,
+            age,
+            gender,
+            phone,
+            email,
+            symptom,
+            department,
+            doctor,
+            date,
+            time
+        )
     )
-    VALUES(?,?,?,?,?,?,?,?,?,?,?)
-    """,
-    (
-        appointment_id,
-        patient,
-        age,
-        gender,
-        phone,
-        email,
-        symptom,
-        department,
-        doctor,
-        date,
-        time
-    )
-)
 
-conn.commit()
-conn.close()
-```
+    conn.commit()
+    conn.close()
+
 
 def get_appointments():
-conn = sqlite3.connect("appointment.db")
-c = conn.cursor()
+    conn = sqlite3.connect("appointment.db")
+    c = conn.cursor()
 
-```
-c.execute("SELECT * FROM appointments")
+    c.execute("SELECT * FROM appointments")
 
-data = c.fetchall()
+    data = c.fetchall()
 
-conn.close()
+    conn.close()
 
-return data
-```
+    return data
