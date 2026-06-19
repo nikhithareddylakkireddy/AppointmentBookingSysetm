@@ -65,9 +65,38 @@ elif choice == "Book Appointment":
 
     st.subheader("Book Appointment")
 
+    appointment_id = st.text_input("Appointment ID")
+
     patient = st.text_input("Patient Name")
 
+    age = st.number_input(
+        "Age",
+        min_value=1,
+        max_value=120,
+        step=1
+    )
+
+    gender = st.selectbox(
+        "Gender",
+        ["Male", "Female", "Other"]
+    )
+
+    phone = st.text_input("Phone Number")
+
     email = st.text_input("Email Address")
+
+    symptom = st.text_input("Symptoms")
+
+    department = st.selectbox(
+        "Department",
+        [
+            "General Medicine",
+            "Cardiology",
+            "Dentist",
+            "Neurology",
+            "Orthopedics"
+        ]
+    )
 
     doctor = st.selectbox(
         "Select Doctor",
@@ -88,18 +117,28 @@ elif choice == "Book Appointment":
 
         try:
 
-            # Save appointment in database
+            # Save Appointment
             book_appointment(
+                appointment_id,
                 patient,
+                age,
+                gender,
+                phone,
+                email,
+                symptom,
+                department,
                 doctor,
                 str(date),
                 str(time)
             )
 
-            # Send confirmation email
+            # Send Email
             email_sent = send_confirmation_email(
                 email,
                 patient,
+                appointment_id,
+                symptom,
+                department,
                 doctor,
                 str(date),
                 str(time)
@@ -122,7 +161,5 @@ elif choice == "Book Appointment":
 # ---------------- ADMIN PANEL ----------------
 
 elif choice == "Admin":
-
-    st.subheader("Admin Dashboard")
 
     admin_panel()
