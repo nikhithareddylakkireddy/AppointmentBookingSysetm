@@ -4,6 +4,9 @@ def init_db():
     conn = sqlite3.connect("appointment.db")
     c = conn.cursor()
 
+    # Delete old appointments table
+    c.execute("DROP TABLE IF EXISTS appointments")
+
     # Users Table
     c.execute("""
     CREATE TABLE IF NOT EXISTS users(
@@ -15,7 +18,7 @@ def init_db():
 
     # Appointments Table
     c.execute("""
-    CREATE TABLE IF NOT EXISTS appointments(
+    CREATE TABLE appointments(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         appointment_id TEXT,
         patient TEXT,
