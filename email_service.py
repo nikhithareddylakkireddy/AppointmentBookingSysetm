@@ -1,30 +1,24 @@
 import smtplib
 from email.mime.text import MIMEText
 
-EMAIL = "[nikhithareddylakkireddy@gmail.com](mailto:nikhithareddylakkireddy@gmail.com)"
-
-# Paste your Google App Password here WITHOUT spaces
-
+EMAIL = "nikhithareddylakkireddy@gmail.com"
 PASSWORD = "ernf btrp vljr ckgs"
 
 def send_confirmation_email(
-recipient_email,
-patient,
-appointment_id,
-symptom,
-department,
-doctor,
-date,
-time
+    recipient_email,
+    patient,
+    appointment_id,
+    symptom,
+    department,
+    doctor,
+    date,
+    time
 ):
-try:
+    try:
 
-```
-    subject = "Doctor Appointment Confirmation"
+        subject = "Doctor Appointment Confirmation"
 
-    body = f"""
-```
-
+        body = f"""
 Hello {patient},
 
 Your appointment has been booked successfully.
@@ -41,38 +35,27 @@ Time: {time}
 Thank you for using our Doctor Appointment Booking System.
 """
 
-```
-    msg = MIMEText(body)
+        msg = MIMEText(body)
 
-    msg["Subject"] = subject
-    msg["From"] = EMAIL
-    msg["To"] = recipient_email
+        msg["Subject"] = subject
+        msg["From"] = EMAIL
+        msg["To"] = recipient_email
 
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
 
-    server.login(
-        EMAIL,
-        PASSWORD
-    )
+        server.login(EMAIL, PASSWORD)
 
-    server.sendmail(
-        EMAIL,
-        recipient_email,
-        msg.as_string()
-    )
+        server.sendmail(
+            EMAIL,
+            recipient_email,
+            msg.as_string()
+        )
 
-    server.quit()
+        server.quit()
 
-    print("EMAIL SENT SUCCESSFULLY")
+        return True
 
-    return True
-
-except Exception as e:
-
-    print("EMAIL ERROR:", e)
-
-    return False
-```
+    except Exception as e:
+        print("EMAIL ERROR:", e)
+        return False
